@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace Project.Source.Shapes
 {
-    abstract class Shape
+    interface Shape
     {
-        public abstract Shape createShape(int x, int y);
-        public abstract bool inShape(int x, int y);
-        public abstract void draw(Graphics gr, Pen penNotSel, Pen penSel);
+        Shape createShape(int x, int y);
+        bool inShape(int x, int y);
+        void draw(Graphics gr, Pen penNotSel, Pen penSel);
     }
 }

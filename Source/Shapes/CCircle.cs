@@ -9,21 +9,24 @@ namespace Project.Source.Shapes
 {
     class CCircle : Shape
     {
-        private int m_x, m_y;
-        private const int m_radius = 100;
-        private bool isSelection;
+        private int m_x, m_y; // Центр круга
+        private const int m_radius = 100; // Радиус круга
+        private bool isSelection; // Выделен ли элемент
         public CCircle(int x, int y)
         {
             m_x = x;
             m_y = y;
         }
 
+        // Создаёт круг с серединной в указанной точке
         public override Shape createShape(int x, int y) { return new CCircle(x, y); }
+        // Находится ли указанные координаты внутри фигуры
         public override bool inShape(int x, int y)
         {
             bool isBigger = Math.Sqrt(Math.Pow(x - m_x, 2) +  Math.Pow(y - m_y, 2)) > m_radius;
             return isBigger;
         }
+        // Прорисовка круга: в случае выделения и созодания
         public override void draw(Graphics gr, Pen penNotSel, Pen penSel)
         {
             if (isSelection)
