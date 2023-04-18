@@ -54,7 +54,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Source\Container.cs" />
     <Compile Include="Source\Shapes\CCircle.cs" />
     <Compile Include="Source\Shapes\Shape.cs" />
     <EmbeddedResource Include="Form1.resx">
