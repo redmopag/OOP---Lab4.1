@@ -10,7 +10,7 @@ namespace Project.Source.Shapes
     class CCircle : Shape
     {
         private int m_x, m_y; // Центр круга
-        private const int m_radius = 100; // Радиус круга
+        private const int m_radius = 20; // Радиус круга
         public bool isSelection; // Выделен ли элемент
         public CCircle()
         {

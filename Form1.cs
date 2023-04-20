@@ -17,12 +17,14 @@ namespace Project
         private List<Shape> prototypes = new List<Shape>() { new CCircle() };
         // Нажата ли клавиша ctrl
         private bool isCtrl = false;
+        // Флаг для выбора нескольких элементов при одном нажатии
+        private bool isMultiTuch = false;
         // Создание списка фигур
         private List<Shape> shapes = new List<Shape>();
 
         // Инициализация обхектов Pen для прорисовки объектов:
         // Толщина ручки
-        private const float penWidth = 5f;
+        private const float penWidth = 1f;
         // Цвет для не выделенных объектов
         private readonly Pen penNotSelection = new Pen(Color.Black, penWidth);
         // Цвет для выделенных объектов
@@ -40,23 +42,24 @@ namespace Project
                 shape.setSelection(false);
         }
         // Обходит контейнер фигур и проверяет, попал ли курсор в одну из фигур
-        // Если попал, возвращает true
+        // Если попал, возвращает true, а также отмечает подходящие фигуры как выбранные
         // Учитывает возможность одинарного и множественного выделения через ctrl
         private bool inShapeContainer(int x, int y)
         {
             bool flagInCont = false;
+            if (!isCtrl)
+                resetAllSelections();
             foreach (Shape shape in shapes)
             {
-                if (shape.inShape(x, y) && isCtrl)
+                if (shape.inShape(x, y))
                 {
                     shape.setSelection(true);
                     flagInCont = true;
-                }
-                else if (shape.inShape(x, y) && !isCtrl)
-                {
-                    shape.setSelection(true);
-                    flagInCont = true;
-                    break;
+                    if(!isCtrl)
+                    {
+
+                        break;
+                    }
                 }
             }
             return flagInCont;
@@ -81,10 +84,12 @@ namespace Project
                 case Keys.Delete:
                     for (int i = 0; i < shapes.Count; ++i)
                         if (shapes[i].getSelection())
-                            shapes.RemoveAt(i);
+                            shapes.RemoveAt(i--);
+                    pictureBoxDrawFigure.Refresh();
                     break;
                 case Keys.ControlKey:
                     isCtrl = true;
+                    checkBoxCtrl.Checked = isCtrl;
                     break;
             }
         }
@@ -93,12 +98,19 @@ namespace Project
         {
             // Если отпущена кнопка ctrl, флаг "выключается" = false
             isCtrl = (e.KeyCode == Keys.ControlKey) ? false : true;
+            checkBoxCtrl.Checked = isCtrl;
         }
 
         private void pictureBoxDrawFigure_Paint(object sender, PaintEventArgs e)
         {
             foreach (Shape shape in shapes)
                 shape.draw(e.Graphics, penNotSelection, penSelection);
+        }
+
+        private void checkBoxCtrl_CheckedChanged(object sender, EventArgs e)
+        {
+            // Если галочка поставлена - ctrl включен
+            isCtrl = ((sender as CheckBox).Checked) ? true : false;
         }
     }
 }

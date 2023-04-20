@@ -1,0 +1,11 @@
+D:\Learning\ООП\Лабораторные работы\Lab4.1\Project\bin\Debug\Project.exe.config
+D:\Learning\ООП\Лабораторные работы\Lab4.1\Project\bin\Debug\Project.exe
+D:\Learning\ООП\Лабораторные работы\Lab4.1\Project\bin\Debug\Project.pdb
+D:\Learning\ООП\Лабораторные работы\Lab4.1\Project\obj\Debug\Project.csproj.AssemblyReference.cache
+D:\Learning\ООП\Лабораторные работы\Lab4.1\Project\obj\Debug\Project.csproj.SuggestedBindingRedirects.cache
+D:\Learning\ООП\Лабораторные работы\Lab4.1\Project\obj\Debug\Project.FormMain.resources
+D:\Learning\ООП\Лабораторные работы\Lab4.1\Project\obj\Debug\Project.Properties.Resources.resources
+D:\Learning\ООП\Лабораторные работы\Lab4.1\Project\obj\Debug\Project.csproj.GenerateResource.cache
+D:\Learning\ООП\Лабораторные работы\Lab4.1\Project\obj\Debug\Project.csproj.CoreCompileInputs.cache
+D:\Learning\ООП\Лабораторные работы\Lab4.1\Project\obj\Debug\Project.exe
+D:\Learning\ООП\Лабораторные работы\Lab4.1\Project\obj\Debug\Project.pdb
