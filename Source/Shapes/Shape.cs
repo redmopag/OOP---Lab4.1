@@ -9,10 +9,12 @@ namespace Project.Source.Shapes
 {
     interface Shape
     {
-        Shape createShape(int x, int y);
+        Shape clone();
         bool inShape(int x, int y);
         void draw(Graphics gr, Pen penNotSel, Pen penSel);
         void setSelection(bool flag);
         bool getSelection();
+        void setX(int x);
+        void setY(int y);
     }
 }

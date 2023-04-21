@@ -31,11 +31,13 @@
             this.pictureBoxDrawFigure = new System.Windows.Forms.PictureBox();
             this.checkBoxMultiSelection = new System.Windows.Forms.CheckBox();
             this.checkBoxCtrl = new System.Windows.Forms.CheckBox();
+            this.buttonCircle = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDrawFigure)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBoxDrawFigure
             // 
+            this.pictureBoxDrawFigure.BackColor = System.Drawing.SystemColors.ControlLight;
             this.pictureBoxDrawFigure.Location = new System.Drawing.Point(12, 12);
             this.pictureBoxDrawFigure.Name = "pictureBoxDrawFigure";
             this.pictureBoxDrawFigure.Size = new System.Drawing.Size(644, 524);
@@ -53,6 +55,7 @@
             this.checkBoxMultiSelection.TabIndex = 2;
             this.checkBoxMultiSelection.Text = "Multi-selection";
             this.checkBoxMultiSelection.UseVisualStyleBackColor = true;
+            this.checkBoxMultiSelection.Click += new System.EventHandler(this.checkBoxMultiSelection_Click);
             // 
             // checkBoxCtrl
             // 
@@ -63,13 +66,24 @@
             this.checkBoxCtrl.TabIndex = 1;
             this.checkBoxCtrl.Text = "Ctrl";
             this.checkBoxCtrl.UseVisualStyleBackColor = true;
-            this.checkBoxCtrl.CheckedChanged += new System.EventHandler(this.checkBoxCtrl_CheckedChanged);
+            this.checkBoxCtrl.Click += new System.EventHandler(this.checkBoxCtrl_Click);
+            // 
+            // buttonCircle
+            // 
+            this.buttonCircle.Location = new System.Drawing.Point(663, 65);
+            this.buttonCircle.Name = "buttonCircle";
+            this.buttonCircle.Size = new System.Drawing.Size(75, 23);
+            this.buttonCircle.TabIndex = 3;
+            this.buttonCircle.Text = "Circle";
+            this.buttonCircle.UseVisualStyleBackColor = true;
+            this.buttonCircle.Click += new System.EventHandler(this.buttonCircle_Click);
             // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(902, 548);
+            this.Controls.Add(this.buttonCircle);
             this.Controls.Add(this.checkBoxMultiSelection);
             this.Controls.Add(this.checkBoxCtrl);
             this.Controls.Add(this.pictureBoxDrawFigure);
@@ -89,6 +103,7 @@
         private System.Windows.Forms.PictureBox pictureBoxDrawFigure;
         private System.Windows.Forms.CheckBox checkBoxMultiSelection;
         private System.Windows.Forms.CheckBox checkBoxCtrl;
+        private System.Windows.Forms.Button buttonCircle;
     }
 }
 

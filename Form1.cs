@@ -9,20 +9,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using Project.Source;
+
 namespace Project
 {
     public partial class FormMain : Form
     {
         // Списко фигур-прототипов
         private List<Shape> prototypes = new List<Shape>() { new CCircle() };
-        // Нажата ли клавиша ctrl
-        private bool isCtrl = false;
-        // Флаг для выбора нескольких элементов при одном нажатии
-        private bool isMultiTuch = false;
-        // Создание списка фигур
-        private List<Shape> shapes = new List<Shape>();
+        Shape shape;
+        // Контейнер, хранящий фигуры и мтоды работы с ними
+        private Project.Source.Container shapes = new Project.Source.Container();
 
-        // Инициализация обхектов Pen для прорисовки объектов:
+        // Инициализация объектов Pen для прорисовки объектов:
         // Толщина ручки
         private const float penWidth = 1f;
         // Цвет для не выделенных объектов
@@ -35,44 +34,13 @@ namespace Project
             InitializeComponent();
         }
 
-        // Снимает все выделения фигур
-        private void resetAllSelections()
-        {
-            foreach (Shape shape in shapes)
-                shape.setSelection(false);
-        }
-        // Обходит контейнер фигур и проверяет, попал ли курсор в одну из фигур
-        // Если попал, возвращает true, а также отмечает подходящие фигуры как выбранные
-        // Учитывает возможность одинарного и множественного выделения через ctrl
-        private bool inShapeContainer(int x, int y)
-        {
-            bool flagInCont = false;
-            if (!isCtrl)
-                resetAllSelections();
-            foreach (Shape shape in shapes)
-            {
-                if (shape.inShape(x, y))
-                {
-                    shape.setSelection(true);
-                    flagInCont = true;
-                    if(!isCtrl)
-                    {
-
-                        break;
-                    }
-                }
-            }
-            return flagInCont;
-        }
         private void pictureBoxDrawFigure_MouseDown(object sender, MouseEventArgs e)
         {
             // Проверяем, если не попали ни в одну фигуру, то создаём новую
             // Пока что используя (или патаясь использовать) паттерн прототип :)
-            if (!inShapeContainer(e.X, e.Y))
+            if (!shapes.inShapeContainer(e.X, e.Y))
             {
-                resetAllSelections();
-                shapes.Add(prototypes[0].createShape(e.X, e.Y));
-                shapes.Last().setSelection(true);
+                shapes.addNewShape(shape, e.X, e.Y);
             }
             pictureBoxDrawFigure.Refresh();
         }
@@ -82,35 +50,40 @@ namespace Project
             switch(e.KeyCode)
             {
                 case Keys.Delete:
-                    for (int i = 0; i < shapes.Count; ++i)
-                        if (shapes[i].getSelection())
-                            shapes.RemoveAt(i--);
+                    shapes.removeSelctions();
                     pictureBoxDrawFigure.Refresh();
                     break;
                 case Keys.ControlKey:
-                    isCtrl = true;
-                    checkBoxCtrl.Checked = isCtrl;
+                    shapes.setCtrl(true, checkBoxCtrl);
                     break;
             }
         }
-
         private void FormMain_KeyUp(object sender, KeyEventArgs e)
         {
             // Если отпущена кнопка ctrl, флаг "выключается" = false
-            isCtrl = (e.KeyCode == Keys.ControlKey) ? false : true;
-            checkBoxCtrl.Checked = isCtrl;
+            if (e.KeyCode == Keys.ControlKey)
+                shapes.setCtrl(false, checkBoxCtrl);
         }
 
         private void pictureBoxDrawFigure_Paint(object sender, PaintEventArgs e)
         {
-            foreach (Shape shape in shapes)
-                shape.draw(e.Graphics, penNotSelection, penSelection);
+            shapes.drawShapes(e.Graphics, penNotSelection, penSelection);
         }
 
-        private void checkBoxCtrl_CheckedChanged(object sender, EventArgs e)
+        private void checkBoxCtrl_Click(object sender, EventArgs e)
         {
             // Если галочка поставлена - ctrl включен
-            isCtrl = ((sender as CheckBox).Checked) ? true : false;
+            shapes.setCtrl(((sender as CheckBox).Checked));
+        }
+
+        private void checkBoxMultiSelection_Click(object sender, EventArgs e)
+        {
+            shapes.setMultiSelection();
+        }
+
+        private void buttonCircle_Click(object sender, EventArgs e)
+        {
+            shape = prototypes[0];
         }
     }
 }
